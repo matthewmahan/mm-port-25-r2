@@ -14,7 +14,9 @@ import "../styles/global.css";
 	</head>
 	<body>
 		<Navigation />
-		<slot />
+		<div class="max-w-[600px] mx-auto">
+			<slot />
+		</div>
 		<Footer />
 	</body>
 </html>
