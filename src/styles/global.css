@@ -1,9 +1,13 @@
-@import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:ital,wght@0,100..700;1,100..700&display=swap');
-@import "tailwindcss";
-
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
-@theme {
-  --font-sans: "IBM Plex Sans", sans-serif;
-  }
+@reference "tailwindcss/theme.css";
+@custom-variant dark (&:where([data-theme=dark], [data-theme=dark] *));
+@layer base {
+    body {
+        font-family: "DM Sans", sans-serif;
+        @apply bg-stone-100 dark:bg-gray-800 text-gray-900 dark:text-white;
+        
+    }
+    
+}
