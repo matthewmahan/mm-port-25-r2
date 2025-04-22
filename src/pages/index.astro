@@ -5,9 +5,11 @@ import { getCollection } from 'astro:content';
 import Experience from '../components/Experience.astro';
 import Layout from '../layouts/Layout.astro';
 
+// Sort notes by date (newest first)
 const notes = (await getCollection('notes')).sort(
-	(a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf()
+	(a, b) => new Date(b.data.pubDate).valueOf() - new Date(a.data.pubDate).valueOf()
 );
+
 const recentNotes = notes.slice(0, 3);
 ---
 
@@ -21,18 +23,23 @@ const recentNotes = notes.slice(0, 3);
 		>
 			Recent Notes
 		</h2>
-		<ul class="space-y-2">
+		<ul class="space-y-2 mt-4">
 			{
 				recentNotes.map((note) => (
-					<li class="border-2 border-gray-200 dark:border-gray-700 p-4 rounded-lg">
-						<a href={`/notes/${note.slug}`} class="block">
-							<h3 class="text-lg font-bold dark:text-white text-gray-800">
-								{note.data.title}
-							</h3>
-						</a>
+					<li>
+						<div class="border-2 border-gray-200 dark:border-gray-700 p-4 rounded-lg shadow-md hover:shadow-lg transition-shadow duration-300">
+							<a href={`/notes/${note.slug}`} class="block">
+								<h3 class="text-lg font-bold dark:text-white text-gray-800">
+									{note.data.title}
+								</h3>
+								<p class="text-sm dark:text-gray-300 text-gray-600 mt-1">
+									{note.data.subtitle}
+								</p>
+							</a>
+						</div>
 					</li>
 				))
 			}
-		</ul>
+		</ul>	
 	</div>
 </Layout>
